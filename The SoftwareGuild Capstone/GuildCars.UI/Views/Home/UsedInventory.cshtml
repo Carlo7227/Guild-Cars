@@ -1,0 +1,167 @@
+﻿@model IEnumerable<GuildCars.Data.Vehicle>
+@{
+    ViewBag.Title = "UsedInventory";
+}
+
+<h2>Used Inventory</h2>
+<div class="row">
+    <div class="col-md-12">
+        <form class="form-group" action="" method="POST">
+            <div class="col-md-4">
+                <label>Quick Search</label>
+                <input class="form-control" type="text" name="search" id="searchTerm" placeholder="Enter Make, Model, or Year">
+            </div>
+            <div class="col-md-4">
+                <label>Price</label>
+                <select id="min-price" name="minPrice" class="form-control">
+                    <option value="">No Min</option>
+                    <option value="10000">$10,000</option>
+                    <option value="20000">$20,000</option>
+                    <option value="30000">$30,000</option>
+                    <option value="40000">$40,000</option>
+                    <option value="50000">$50,000</option>
+                    <option value="60000">$60,000</option>
+                    <option value="70000">$70,000</option>
+                    <option value="80000">$80,000</option>
+                    <option value="90000">$90,000</option>
+                    <option value="100000">$100,000</option>
+                </select>
+                <select id="max-price" name="maxPrice" class="form-control">
+                    <option value="">No Max</option>
+                    <option value="10000">$10,000</option>
+                    <option value="20000">$20,000</option>
+                    <option value="30000">$30,000</option>
+                    <option value="40000">$40,000</option>
+                    <option value="50000">$50,000</option>
+                    <option value="60000">$60,000</option>
+                    <option value="70000">$70,000</option>
+                    <option value="80000">$80,000</option>
+                    <option value="90000">$90,000</option>
+                    <option value="100000">$100,000</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label>Year</label>
+                <select id="min-year" name="minYear" class="form-control">
+                    <option value="">No Min</option>
+                    <option value="2000">2000</option>
+                    <option value="2001">2001</option>
+                    <option value="2002">2002</option>
+                    <option value="2003">2003</option>
+                    <option value="2004">2004</option>
+                    <option value="2005">2005</option>
+                    <option value="2006">2006</option>
+                    <option value="2007">2007</option>
+                    <option value="2008">2008</option>
+                    <option value="2009">2009</option>
+                    <option value="2010">2010</option>
+                    <option value="2011">2011</option>
+                    <option value="2012">2012</option>
+                    <option value="2013">2013</option>
+                    <option value="2014">2014</option>
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                </select>
+                <select id="max-year" name="maxYear" class="form-control">
+                    <option value="">No Max</option>
+                    <option value="2000">2000</option>
+                    <option value="2001">2001</option>
+                    <option value="2002">2002</option>
+                    <option value="2003">2003</option>
+                    <option value="2004">2004</option>
+                    <option value="2005">2005</option>
+                    <option value="2006">2006</option>
+                    <option value="2007">2007</option>
+                    <option value="2008">2008</option>
+                    <option value="2009">2009</option>
+                    <option value="2010">2010</option>
+                    <option value="2011">2011</option>
+                    <option value="2012">2012</option>
+                    <option value="2013">2013</option>
+                    <option value="2014">2014</option>
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-default align-center" id="search-button" type="button">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div id="searchResults" class="col-xs-12">
+
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#search-button").on('click', function () {
+                search();
+                return false;
+            });
+        });
+
+        function search() {
+            var params;
+            var imagePath = '@Url.Content("~/Images/")';
+            var detailsPath = '@Url.Action("Details", "Home")/';
+
+            params = 'MinPrice=' + $('#min-price').val() + '&MaxPrice=' + $('#max-price').val()
+                + '&MinYear=' + $('#min-year').val() + '&MaxYear=' + $('#max-year').val() +
+                '&Text=' + $('#searchTerm').val();
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:49706/api/Home/UsedInventory?' + params,
+                success: function (results) {
+                    $('#searchResults').empty();
+
+                    $.each(results, function (index, car) {
+                        var html =
+                        '<div class="row">' +
+                        '<div class="col-md-12">' +
+                                        '<div class="col-md-2">' +
+                          '<p><img src="' + imagePath + car.ImageFileName + '"style="width:100%;height:100%;" class="img-responsive img-rounded img-circle" /></p>' +
+                                             '</div>' +
+                                '<div class="col-md-2">' +
+                        '<p><strong>Year: </strong>' + car.Year + '</p>' +
+                        '<p><strong>Make: </strong>' + car.Model.Make.MakeType + '</p>' +
+                        '<p><strong>Model: </strong>' + car.Model.Model1 + '</p>' +
+                                    '</div>' +
+                                '<div class="col-md-3">' +
+                        '<p><strong>Body Type: </strong>' + car.BodyType.Type + '</p>' +
+                        '<p><strong>Transmission: </strong>' + ((car.IsAutomatic) ? 'Automatic' : 'Manual') + '</p>' +
+                        '<p><strong>Exterior Color: </strong>' + car.Color.ColorName + '</p>' +
+                                    '</div>' +
+                            '<div class="col-md-3">' +
+                        '<p><strong>Interior Color: </strong>' + car.Color1.ColorName + '</p>' +
+                        '<p><strong>Mileage: </strong>' + ((car.IsNew) ? 'New' : car.Mileage) + '</p>' +
+                        '<p><strong>VIN: </strong>' + car.VIN + '</p>' +
+                                    '</div>' +
+                                '<div class="col-md-2">' +
+                        '<p><strong>Sales Price: $</strong>' + car.SalesPrice + '</p>' +
+                        '<p><strong>MSRP: $</strong>' + car.MSRP + '</p>' +
+                           '<p><a href="' + detailsPath + car.VehicleID + '">view details</a></p>' +
+                                '</div>' +
+                             '</div>' +
+                        '</div>' + '<hr />'
+
+                        $('#searchResults').append(html.toString());
+                    });
+
+                },
+                error: function () {
+                    alert('Error performing search, try again later!')
+                }
+            });
+        }
+    </script>
+}

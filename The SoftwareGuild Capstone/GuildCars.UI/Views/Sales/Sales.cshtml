@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Sales";
+}
+
+<h2>Sales</h2>
+<div class="row">
+    <div class="col-md-12">
+        <form class="form-group" action="" method="POST">
+            <div class="col-md-4">
+                <label>Quick Search</label>
+                <input class="form-control" type="text" name="search" id="searchTerm" placeholder="Enter Make,Moel, or Year">
+            </div>
+            <div class="col-md-4">
+                <label>Price</label>
+                <select id="select" class="form-control" name="category">
+                    <option value="min-price">No Min</option>
+                </select>
+                <select id="select" class="form-control" name="category">
+                    <option value="max-price">No Max</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label>Year</label>
+                <select id="select" class="form-control" name="category">
+                    <option value="min-year">No Min</option>
+                </select>
+                <select id="select-max-year" class="form-control" name="category">
+                    <option value="max-year">No Max</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-default align-center" id="search-button" type="button">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div id="searchResults" class="col-xs-12">
+
+    </div>
+</div>

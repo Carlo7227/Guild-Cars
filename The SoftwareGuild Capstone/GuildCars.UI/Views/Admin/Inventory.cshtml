@@ -1,0 +1,58 @@
+﻿@model IEnumerable<GuildCars.Models.Queries.VehicleInventoryDetail>
+@{
+    ViewBag.Title = "Inventory";
+}
+
+<h2>Inventory</h2>
+
+<table border="1" width="200" class="table table-responsive table-striped">
+    <caption class="text-center">New Inventory</caption>
+    <thead>
+        <tr bgcolor="grey">
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Count</th>
+            <th>Stock Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model.Where(n => n.IsNew == true))
+        {  
+            <tr>
+                <td>@car.Make</td>
+                <td>@car.Model</td>
+                <td>@car.Year</td>
+                <td>@car.Count</td>
+                <td>@car.StockValue</td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+<table border="1" width="200" class="table table-responsive table-striped">
+    <caption class="text-center">Used Inventory</caption>
+    <thead>
+        <tr bgcolor="grey">
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Count</th>
+            <th>Stock Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model.Where(n => n.IsNew == false))
+        {
+            <tr>
+                <td>@car.Make</td>
+                <td>@car.Model</td>
+                <td>@car.Year</td>
+                <td>@car.Count</td>
+                <td>@car.StockValue</td>
+            </tr>
+
+        }
+    </tbody>
+</table>

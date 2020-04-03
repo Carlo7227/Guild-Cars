@@ -1,0 +1,49 @@
+﻿@model GuildCars.Data.Vehicle
+@{ 
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-2">
+                <p><img src="@Url.Content("~/Images/" + Model.ImageFileName)" style="width:100%; height:100%;" class="img-responsive img-rounded img-circle" /></p>
+            </div>
+            <div class="col-md-2">
+                <p><strong>Year: </strong>@Model.Year</p>
+                <p><strong>Make: </strong>@Model.Model.Make.MakeType</p>
+                <p><strong>Model: </strong>$@Model.SalesPrice</p>
+            </div>
+            <div class="col-md-3">
+                <p><strong>Body Type: </strong>@Model.BodyType.Type</p>
+                <p>
+                    <strong>
+                        Transmission:
+                    </strong>
+                        @if (Model.IsAutomatic)
+                        {
+                            <text>Automatic</text>
+                        }
+                        else
+                        {
+                            <text>Manual</text>
+                        }
+                </p>
+                <p><strong>Exterior Color: </strong>@Model.Color.ColorName</p>
+            </div>
+            <div class="col-md-3">
+                <p><strong>Interior Color: </strong>@Model.Color1.ColorName</p>
+                <p><strong>Mileage: </strong>@Model.Mileage</p>
+                <p><strong>VIN: </strong>@Model.VIN</p>
+            </div>
+            <div class="col-md-2">
+                <p><strong>Sales Price: </strong>@Model.SalesPrice</p>
+                <p><strong>MSRP: </strong>@Model.MSRP</p>
+                <a href="http://localhost:49706/Home/Contact" class="btn btn-info" role="button">Contact Us</a>
+            </div>
+        </div>
+    </div>
+        <div class="col-md-12 text-center">
+            <p><strong>Description</strong><br /><hr />@Model.Description</p>
+        </div>

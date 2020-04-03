@@ -1,0 +1,50 @@
+﻿@model GuildCars.Data.Contact
+@{
+    ViewBag.Title = "Contact";
+}
+<h2>Contact Us</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            @using (Html.BeginForm("Contact", "Contact", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmAddListing" }))
+            {
+                @Html.ValidationSummary()
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Name</label>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label><br />
+                        @Html.TextAreaFor(m => m.Message, new { rows = 10, cols = 40 })
+                    </div>
+                    <button class="btn btn-default">Submit</button>
+                </div>
+            }
+            <div id="map" class="col-md-6"></div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+    {
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXbUjfEukYu5s6gscxpFcpp17ErN-2wH0&callback=initMap" async defer>
+        var map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8
+            });
+        }
+    </script>
+}
